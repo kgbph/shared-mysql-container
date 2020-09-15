@@ -1,4 +1,4 @@
-# Shared MySQL Container
+# Shared MySQL Docker Container
 
 ## Setup
 - Clone repository
