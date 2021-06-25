@@ -1,21 +1,21 @@
 # Shared MySQL Docker Container
 
 ## Setup
-- Clone repository
-- Create and configure `docker-compose.override.yml` file
+- Clone the repository
+- Copy `docker-compose.dev.yml` to `docker-compose.override.yml`
+- Configure `docker-compose.override.yml`
 - Execute `docker-compose up -d`
 
-## Starting services
-`docker-compose start`
+## Starting the services
+Execute `docker-compose start`
 
-## Stopping services
-`docker-compose stop`
+## Stopping the services
+Execute `docker-compose stop`
 
-## Configuration for existing projects
+## Connecting the project containers
+Modify the existing project's `docker-compose.override.yml` file to join the shared MySQL network.
 
-Modify the existing project's `docker-compose.yml` or `docker-compose.override.yml` file to join the shared MySQL service's network.
-
-### Define the shared network connections
+### Add the reference to the shared MySQL network
 ``` yml
 networks:
   shared_db:
@@ -23,7 +23,7 @@ networks:
       name: shared-mysql-container_default
 ```
 
-### Connect the app container to network
+### Connect the application container to the shared MySQL network
 ``` yml
 app:
     build: .
@@ -32,19 +32,19 @@ app:
       - shared_db
 ```
 
-## Connecting app to MySQL service
+## Host-to-container connection settings
 
 ```
-Hostname: mysql
+Hostname: 127.0.0.1
 Port: 3306
 Username: root
 Password: password
 ```
 
-## Connecting MySQL Workbench to MySQL service
+## Container-to-container connection settings
 
 ```
-Hostname: 127.0.0.1
+Hostname: mysql
 Port: 3306
 Username: root
 Password: password
